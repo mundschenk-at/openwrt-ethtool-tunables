@@ -7,7 +7,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ethtool-tunables
-PKG_RELEASE:=1
+PKG_VERSION:=1.0
 PKG_LICENSE:=MIT
 PKG_MAINTAINER:=Nicolas Vandamme <n.vandamme@gmail.com>
 
@@ -22,6 +22,7 @@ define Package/ethtool-tunables
   TITLE:=Apply ethtool/ip tunables at boot and hotplug
   URL:=https://github.com/nvandamme/openwrt-ethtool-tunables
   DEPENDS:=+ethtool +ip +ubus +uci +busybox
+  PKGARCH:=all
 endef
 
 define Package/ethtool-tunables/description
@@ -46,12 +47,9 @@ define Package/ethtool-tunables/install
 	$(INSTALL_DIR) $(1)/etc/config
 	$(INSTALL_DIR) $(1)/usr/share/doc/ethtool-tunables
 
-	# The init script, hotplug helper and default config are expected
-	# to be dropped into files/ by the developer before packaging.
-	# Example (uncomment when the files are present in files/):
-	# $(INSTALL_BIN) ./etc/init.d/ethtool_tunables $(1)/etc/init.d/ethtool_tunables
-	# $(INSTALL_BIN) ./etc/hotplug.d/net/00-01-ethtool_tunables $(1)/etc/hotplug.d/net/00-01-ethtool_tunables
-	# $(INSTALL_CONF) ./etc/config/ethtool_tunables $(1)/etc/config/ethtool_tunables
+	$(INSTALL_BIN) ./files/ethtool_tunables.init $(1)/etc/init.d/ethtool_tunables
+	$(INSTALL_BIN) ./files/00-01-ethtool_tunables.hotplug $(1)/etc/hotplug.d/net/00-01-ethtool_tunables
+	$(INSTALL_CONF) ./files/ethtool_tunables.conf $(1)/etc/config/ethtool_tunables
 
 	# Always include README
 	$(INSTALL_DATA) ./README.md $(1)/usr/share/doc/ethtool-tunables/README.md
