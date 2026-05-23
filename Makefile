@@ -8,11 +8,10 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ethtool-tunables
 PKG_VERSION:=1.0
-PKG_LICENSE:=MIT
-PKG_MAINTAINER:=Nicolas Vandamme <n.vandamme@gmail.com>
 
-# Dummy source (no upstream tarball). The package installs files/ directly.
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)
+PKG_MAINTAINER:=Nicolas Vandamme <n.vandamme@gmail.com>
+PKG_LICENSE:=MIT
+PKG_LICENSE_FILES:=LICENSE
 
 include $(INCLUDE_DIR)/package.mk
 
